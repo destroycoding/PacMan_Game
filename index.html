@@ -2,21 +2,58 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pacman</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pacman</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #canvas {
+      width: 100%;
+      height: auto;
+      max-width: 100vmin;
+      display: block;
+    }
+
+    #hidden-assets {
+      display: none;
+    }
+  </style>
 </head>
 
-<body style="margin: 0; background-color: black;">
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <div style="display:none;">
-        <img id="animation" src="animations.gif" width="140" height="20">
-        <img id="ghosts" src="ghost.png" width="140" height="20">
-    </div>
-    <script src="ghost.js"></script>
-    <script src="pacman.js"></script>
-    <script src="game.js"></script>
+<body>
+  <canvas id="canvas" width="500" height="500"></canvas>
+
+  <div id="hidden-assets">
+    <img id="animation" src="animations.gif" width="140" height="20" />
+    <img id="ghosts" src="ghost.png" width="140" height="20" />
+  </div>
+
+  <script>
+    // Optional: Adjust canvas size to fit parent
+    function resizeCanvas() {
+      const canvas = document.getElementById('canvas');
+      const aspectRatio = 1; // width / height (500x500)
+      const size = Math.min(window.innerWidth, window.innerHeight);
+      canvas.style.width = `${size}px`;
+      canvas.style.height = `${size / aspectRatio}px`;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('load', resizeCanvas);
+  </script>
+
+  <script src="ghost.js"></script>
+  <script src="pacman.js"></script>
+  <script src="game.js"></script>
 </body>
 
 </html>
