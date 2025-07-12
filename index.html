@@ -11,9 +11,12 @@
       margin: 0;
       background-color: black;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
       height: 100vh;
+      overflow: hidden;
+      position: relative;
     }
 
     #canvas {
@@ -26,22 +29,61 @@
     #hidden-assets {
       display: none;
     }
+
+    #controls {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      user-select: none;
+    }
+
+    #controls button {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffd700;
+      color: black;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    #controls div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Game Canvas -->
   <canvas id="canvas" width="500" height="500"></canvas>
 
+  <!-- Hidden image assets -->
   <div id="hidden-assets">
     <img id="animation" src="animations.gif" width="140" height="20" />
     <img id="ghosts" src="ghost.png" width="140" height="20" />
   </div>
 
+  <!-- Game Controls -->
+  <div id="controls">
+    <button id="up">▲</button>
+    <div>
+      <button id="left">◀</button>
+      <button id="down">▼</button>
+      <button id="right">▶</button>
+    </div>
+  </div>
+
+  <!-- Canvas Resizing -->
   <script>
-    // Optional: Adjust canvas size to fit parent
     function resizeCanvas() {
       const canvas = document.getElementById('canvas');
-      const aspectRatio = 1; // width / height (500x500)
+      const aspectRatio = 1; // 500x500
       const size = Math.min(window.innerWidth, window.innerHeight);
       canvas.style.width = `${size}px`;
       canvas.style.height = `${size / aspectRatio}px`;
@@ -51,6 +93,23 @@
     window.addEventListener('load', resizeCanvas);
   </script>
 
+  <!-- Direction Button Logic -->
+  <script>
+    function sendDirection(dir) {
+      if (typeof setDirection === 'function') {
+        setDirection(dir);
+      } else {
+        console.warn('setDirection function not defined');
+      }
+    }
+
+    document.getElementById('up').addEventListener('click', () => sendDirection('up'));
+    document.getElementById('down').addEventListener('click', () => sendDirection('down'));
+    document.getElementById('left').addEventListener('click', () => sendDirection('left'));
+    document.getElementById('right').addEventListener('click', () => sendDirection('right'));
+  </script>
+
+  <!-- Game Scripts -->
   <script src="ghost.js"></script>
   <script src="pacman.js"></script>
   <script src="game.js"></script>
