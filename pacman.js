@@ -169,4 +169,10 @@ class Pacman {
         );
         canvasContext.restore();
     }
+    // Example (in pacman.js or game.js)
+function setDirection(dir) {
+  // Replace this with how your game changes direction
+  pacman.direction = dir.toUpperCase(); // assuming pacman has a `direction` property
+}
+
 }
